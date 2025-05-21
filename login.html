@@ -1,0 +1,52 @@
+
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Shopping Cart App</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f0f4f8; }
+    header, footer { background: #ff6f61; color: #fff; text-align: center; padding: 15px 0; }
+    .container { max-width: 400px; margin: 60px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    h2 { margin-top: 0; color: #ff6f61; }
+    label { display: block; margin: 15px 0 5px; }
+    input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    .error { color: red; font-size: 0.9em; height: 1em; }
+    button { width: 100%; padding: 12px; background: #ff6f61; border: none; color: #fff; border-radius: 4px; font-size: 1em; cursor: pointer; }
+    button:hover { background: #e65550; }
+    .alt { text-align: center; margin-top: 15px; }
+    .alt a { color: #ff6f61; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header><h1>Shopping Cart App</h1></header>
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" placeholder="you@example.com" required>
+      <div class="error" id="loginEmailError"></div>
+
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" placeholder="Your password" required>
+      <div class="error" id="loginPasswordError"></div>
+
+      <button type="submit">Login</button>
+    </form>
+    <div class="alt">New user? <a href="registration.html">Register</a></div>
+  </div>
+  <footer>&copy; 2025 Shopping Cart App</footer>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const em = document.getElementById('loginEmail').value.trim();
+      const p = document.getElementById('loginPassword').value;
+      const u = JSON.parse(localStorage.getItem(em));
+      document.getElementById('loginEmailError').textContent = '';
+      document.getElementById('loginPasswordError').textContent = '';
+      if (u && u.p===p) { localStorage.setItem('user', JSON.stringify(u)); window.location='cart.html'; }
+      else document.getElementById('loginPasswordError').textContent = 'Wrong credentials';
+    });
+  </script>

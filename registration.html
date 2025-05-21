@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Shopping Cart App</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; }
+    header, footer { background: #ff6f61; color: #fff; text-align: center; padding: 15px 0; }
+    .container { max-width: 400px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    h2 { margin-top: 0; color: #ff6f61; }
+    label { display: block; margin: 15px 0 5px; }
+    input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    .error { color:blue; font-size: 0.9em; height: 1em; }
+    button { width: 100%; padding: 12px; background: #ff6f61; border: none; color: #fff; border-radius: 4px; font-size: 1em; cursor: pointer; }
+    button:hover { background: #e65550; }
+    .alt { text-align: center; margin-top: 15px; }
+    .alt a { color: #ff6f61; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header><h1>Shopping Cart App</h1></header>
+  <div class="container">
+    <h2>Create Account</h2>
+    <form id="registerForm">
+      <label for="regUsername">Username</label>
+      <input type="text" id="regUsername" placeholder="Your username" required>
+      <div class="error" id="regUsernameError"></div>
+
+      <label for="regEmail">Email</label>
+      <input type="email" id="regEmail" placeholder="you@example.com" required>
+      <div class="error" id="regEmailError"></div>
+
+      <label for="regPassword">Password</label>
+      <input type="password" id="regPassword" placeholder="At least 6 characters" required>
+      <div class="error" id="regPasswordError"></div>
+
+      <button type="submit">Register</button>
+    </form>
+    <div class="alt">Already have an account? <a href="login.html">Login</a></div>
+  </div>
+  <footer>&copy; 2025 Shopping Cart App</footer>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const u = document.getElementById('regUsername').value.trim();
+      const em = document.getElementById('regEmail').value.trim();
+      const p = document.getElementById('regPassword').value;
+      document.getElementById('regUsernameError').textContent = u ? '' : 'Required';
+      document.getElementById('regEmailError').textContent = /\S+@\S+\.\S+/.test(em) ? '' : 'Invalid';
+      document.getElementById('regPasswordError').textContent = p.length>=6? '':'Min 6 chars';
+      if (u && /\S+@\S+\.\S+/.test(em) && p.length>=6) {
+        localStorage.setItem(em, JSON.stringify({u,em,p}));
+        alert('Registered!'); window.location='login.html';
+      }
+    });
+  </script>

@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - Shopping Cart App</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #eef2f5; }
+    header, footer { background: #ff6f61; color: #fff; text-align: center; padding: 15px 0; }
+    .container { max-width: 600px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    h2 { color: #ff6f61; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 10px 0; display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; }
+    .btn { background: #ff6f61; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+    .btn:hover { background: #e65550; }
+    .actions { margin-top: 20px; display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+  <header><h1>Your Cart</h1></header>
+  <div class="container">
+    <h2>Items</h2>
+    <ul id="cartItems"></ul>
+    <div class="actions">
+      <button class="btn" onclick="addItem()">Add Item</button>
+      <button class="btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+  <footer>&copy; 2025 Shopping Cart App</footer>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) return window.location='login.html';
+    const list = document.getElementById('cartItems');
+    function addItem() {
+      const name = prompt('Item name:'); if (!name) return;
+      const li = document.createElement('li');
+      li.textContent = name;
+      const btn = document.createElement('button');
+      btn.textContent = 'Remove'; btn.className='btn';
+      btn.onclick = () => list.removeChild(li);
+      li.appendChild(btn);
+      list.appendChild(li);
+    }
+    function logout() { localStorage.removeItem('user'); window.location='login.html'; }
+  </script>
+</body>
+</html>
